@@ -116,10 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EqNode.h" />
+    <ClInclude Include="ESO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EqNode.cpp" />
     <ClCompile Include="test_EqNode.cpp" />
+    <ClCompile Include="test_NLAESO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

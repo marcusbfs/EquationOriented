@@ -6,7 +6,7 @@
 class EqNode {
 	// Class for a equation node
 public:
-	// Type of nodes
+	// Type of nodesn
 	static enum OperatorType {
 		Variable, Parameter, Equal, 
 		Add, Subtract,
