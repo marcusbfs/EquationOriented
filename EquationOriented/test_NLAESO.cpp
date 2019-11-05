@@ -184,51 +184,51 @@ public:
 #define printJac(x) std::cout << x[0][0] << ", " << x[0][1] <<"\n" << x[1][0] << ", " << x[1][1] <<"\n" ;
 
 
-int main() {
-
-	std::shared_ptr<Concrete2dExample> eso = std::make_shared<Concrete2dExample>();
-
-	std::vector<double> AllResiduals, AllVariables;
-	std::vector<std::vector<double>> AllJacobians;
-	std::vector<std::shared_ptr<EqNode>> ParametersList;
-	
-	std::shared_ptr<EqNode> x = std::make_shared<EqNode>();
-	std::shared_ptr<EqNode> y = std::make_shared<EqNode>();
-
-	// Resize vectors
-	AllResiduals.resize(eso->GetNumEqns());
-	AllVariables.resize(eso->GetNumVars());
-	AllJacobians.resize(eso->GetNumEqns());
-	ParametersList.resize(eso->GetNumVars());
-	for (int i = 0; i < eso->GetNumVars(); i++) {
-		AllJacobians[i].resize(eso->GetNumVars());
-	}
-
-	AllVariables[0] = 1.0; AllVariables[1] = 1.0;
-	eso->SetAllVariables(AllVariables);
-
-	eso->GetParameterList(ParametersList);
-
-	log("Initial Var values: ");
-	printVec(eso->GetAllVariables());
-
-
-	eso->GetAllResiduals(AllResiduals);
-	log("Initial res values: ");
-	printVec(AllResiduals);
-
-	eso->GetAllJacobianValues(AllJacobians);
-	log("Initial Jac values: ");
-	printJac(AllJacobians);
-
-	AllVariables[0] = 1.5; AllVariables[1] = 1.;
-	eso->SetAllVariables(AllVariables);
-	log("Solution Var values: ");
-	printVec(eso->GetAllVariables());
-	eso->GetAllResiduals(AllResiduals);
-	log("Solution res values: ");
-	printVec(AllResiduals);
-
-
-	std::getchar();
-}
+//int main() {
+//
+//	std::shared_ptr<Concrete2dExample> eso = std::make_shared<Concrete2dExample>();
+//
+//	std::vector<double> AllResiduals, AllVariables;
+//	std::vector<std::vector<double>> AllJacobians;
+//	std::vector<std::shared_ptr<EqNode>> ParametersList;
+//	
+//	std::shared_ptr<EqNode> x = std::make_shared<EqNode>();
+//	std::shared_ptr<EqNode> y = std::make_shared<EqNode>();
+//
+//	// Resize vectors
+//	AllResiduals.resize(eso->GetNumEqns());
+//	AllVariables.resize(eso->GetNumVars());
+//	AllJacobians.resize(eso->GetNumEqns());
+//	ParametersList.resize(eso->GetNumVars());
+//	for (int i = 0; i < eso->GetNumVars(); i++) {
+//		AllJacobians[i].resize(eso->GetNumVars());
+//	}
+//
+//	AllVariables[0] = 1.0; AllVariables[1] = 1.0;
+//	eso->SetAllVariables(AllVariables);
+//
+//	eso->GetParameterList(ParametersList);
+//
+//	log("Initial Var values: ");
+//	printVec(eso->GetAllVariables());
+//
+//
+//	eso->GetAllResiduals(AllResiduals);
+//	log("Initial res values: ");
+//	printVec(AllResiduals);
+//
+//	eso->GetAllJacobianValues(AllJacobians);
+//	log("Initial Jac values: ");
+//	printJac(AllJacobians);
+//
+//	AllVariables[0] = 1.5; AllVariables[1] = 1.;
+//	eso->SetAllVariables(AllVariables);
+//	log("Solution Var values: ");
+//	printVec(eso->GetAllVariables());
+//	eso->GetAllResiduals(AllResiduals);
+//	log("Solution res values: ");
+//	printVec(AllResiduals);
+//
+//
+//	std::getchar();
+//}

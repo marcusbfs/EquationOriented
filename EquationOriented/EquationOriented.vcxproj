@@ -115,11 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
     <ClInclude Include="EqNode.h" />
     <ClInclude Include="ESO.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Array.cpp" />
     <ClCompile Include="EqNode.cpp" />
+    <ClCompile Include="test_AnyArray.cpp" />
     <ClCompile Include="test_EqNode.cpp" />
     <ClCompile Include="test_NLAESO.cpp" />
   </ItemGroup>
