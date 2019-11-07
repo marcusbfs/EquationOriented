@@ -1,8 +1,5 @@
 #pragma once
 
-#include <memory>
-#include <vector>
-
 #pragma region
 // ============= ArrayAny =================
 // Represents an multidimensinal array.
@@ -91,8 +88,9 @@ T& ArrayAny<T>::operator[](unsigned int i) {
 	return this->at(i);
 }
 // ============= End Of ArrayAny =================
-#pragma endregion ArrayAny end
+#pragma endregion ArrayAny
 
+#pragma region
 // ============= Vector =================
 
 // Class to represent a vector
@@ -118,12 +116,10 @@ public:
 	// Get the pointer to the raw data
 	inline T* getData() const { return this->data; }
 	// Return T element at index 'i'
-	T& operator[](const unsigned int i);
 	T& at(const unsigned int i);
+	T& operator()(const unsigned int i);
 	// Operator "=" overload
 	void operator=(const Vector<T>& obj);
-
-
 };
 
 template<class T>
@@ -155,7 +151,7 @@ Vector<T>::~Vector()
 
 // Return T element at index 'i'
 template<class T>
-T& Vector<T>::operator[](const unsigned int i)
+T& Vector<T>::operator()(const unsigned int i)
 {
 	return this->at(i);
 }
@@ -179,3 +175,98 @@ void Vector<T>::operator=(const Vector<T>& obj)
 		data[i] = *(obj.getData() + i);
 	}
 }
+// ============= Vector =================
+#pragma endregion Vector
+
+#pragma region
+// Class to represent a Matrix
+template<class T>
+class Matrix {
+
+private:
+	// Variables
+	// Raw data
+	T* data ;
+	// Size = total number of elements
+	unsigned int _size ;
+	// Number of rows
+	unsigned int _nrow ;
+	// Number of columns
+	unsigned int _ncol ;
+
+public:
+	// Constructors and destructors
+	Matrix(const unsigned int nrow, const unsigned int ncol);
+	Matrix(const Matrix<T>& obj);
+	~Matrix();
+
+	// Functions
+	// Return the current size of vector (number of elements>
+	inline unsigned int size() const { return this->_size; }
+	// Return the current number of rows
+	inline unsigned int numberOfRows() const { return this->_nrow; }
+	// Return the current number of columns
+	inline unsigned int numberOfCols() const { return this->_ncol; }
+	// Get the pointer to the raw data
+	inline T* getData() const { return this->data; }
+	// Return T element at index 'i', j
+	T& at(const unsigned int i, const unsigned int j);
+	T& operator()(const unsigned int i, const unsigned int j);
+	// Operator "=" overload
+	void operator=(const Matrix<T>& obj);
+};
+
+template<class T>
+Matrix<T>::Matrix(const unsigned int nrow, const unsigned int ncol)
+: _nrow(nrow), _ncol(ncol)
+{
+	_size = _nrow * _ncol;
+	data = new T[_size];
+
+}
+
+template<class T>
+Matrix<T>::Matrix(const Matrix<T>& obj)
+{
+	_nrow = obj.numberOfRows();
+	_ncol = obj.numberOfCols();
+	_size = obj.size();
+	data = new T[_size];
+	for (unsigned int i = 0; i < _size; i++)
+		data[i] = *(obj.getData()+i);
+}
+
+template<class T>
+Matrix<T>::~Matrix()
+{
+	if (_size > 0)
+		delete[] data;
+	else
+		delete data;
+	data = nullptr;
+}
+
+template<class T>
+T & Matrix<T>::at(const unsigned int i, const unsigned int j)
+{
+	return data[i + _nrow*j];
+}
+
+template<class T>
+T& Matrix<T>::operator()(const unsigned int i, const unsigned int j)
+{
+	return this->at(i, j);
+}
+
+template<class T>
+void Matrix<T>::operator=(const Matrix<T>& obj)
+{
+	_nrow = obj.numberOfRows();
+	_ncol = obj.numberOfCols();
+	_size = obj.size();
+	data = new T[_size];
+	for (unsigned int i = 0; i < _size; i++)
+		data[i] = *(obj.getData()+i);
+}
+
+#pragma endregion Matrix

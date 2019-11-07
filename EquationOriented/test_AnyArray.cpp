@@ -8,24 +8,18 @@
 
 int main() {
 
-	int shape = 5;
+	int nrow = 3, ncol = 2;
+	Matrix<int> x(nrow, ncol);
 
-	Vector<int> x(shape);
-	{
-	Vector<int> y(shape);
-	y[0] = 1;
-	y[1] = 2;
-	y[2] = 3;
-	y[3] = 4;
-	y[4] = 5;
-	//y[10] = 1;
-	x = y;
+	int c = 1;
+	for (int i=0; i<nrow; i++){
+		for (int j=0; j<ncol; j++){
+			x(i, j) = c++;
+		}
 	}
 
-
-	log("Array content")
-	for (unsigned int i = 0; i < x.size(); i++) {
-		log(x[i]);
+	for (int i=0; i<x.size(); i++){
+		log(*(x.getData() + i));
 	}
 
 	std::getchar();
