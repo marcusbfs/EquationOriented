@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 
+#pragma region
+// ============= ArrayAny =================
 // Represents an multidimensinal array.
 // The raw data is stored in a column-major format (like Fortran)
 template<class T>
@@ -87,4 +89,93 @@ T& ArrayAny<T>::at(unsigned int i) {
 template<class T>
 T& ArrayAny<T>::operator[](unsigned int i) {
 	return this->at(i);
+}
+// ============= End Of ArrayAny =================
+#pragma endregion ArrayAny end
+
+// ============= Vector =================
+
+// Class to represent a vector
+template<class T>
+class Vector {
+
+private:
+	// Variables
+	// Raw data
+	T* data ;
+	// Size
+	unsigned int _size ;
+
+public:
+	// Constructors and destructors
+	Vector(const unsigned int size);
+	Vector(const Vector<T>& obj);
+	~Vector();
+
+	// Functions
+	// Return the current size of vector (number of elements>
+	inline unsigned int size() const { return this->_size; }
+	// Get the pointer to the raw data
+	inline T* getData() const { return this->data; }
+	// Return T element at index 'i'
+	T& operator[](const unsigned int i);
+	T& at(const unsigned int i);
+	// Operator "=" overload
+	void operator=(const Vector<T>& obj);
+
+
+};
+
+template<class T>
+ Vector<T>::Vector(const unsigned int size)
+	: _size(size)
+{
+	data = new T[this->_size];
+}
+
+template<class T>
+Vector<T>::Vector(const Vector<T> & obj)
+{
+	this->_size = obj.size();
+	data = new T[this->_size];
+	for (unsigned int i = 0; i < this->_size; i++) {
+		data[i] = *(obj.getData() + i);
+	}
+}
+
+template<class T>
+Vector<T>::~Vector()
+{
+	if (this->_size > 1)
+		delete[] data;
+	else
+		delete data;
+	data = nullptr;
+}
+
+// Return T element at index 'i'
+template<class T>
+T& Vector<T>::operator[](const unsigned int i)
+{
+	return this->at(i);
+}
+
+template<class T>
+T & Vector<T>::at(const unsigned int i)
+{
+	#ifdef _DEBUG
+	if (i < 0 || i >= this->_size)
+		throw "OUT OF BOUNDS!";
+	#endif
+	return this->data[i];
+}
+
+template<class T>
+void Vector<T>::operator=(const Vector<T>& obj)
+{
+	this->_size = obj.size();
+	data = new T[this->_size];
+	for (unsigned int i = 0; i < this->_size; i++) {
+		data[i] = *(obj.getData() + i);
+	}
 }

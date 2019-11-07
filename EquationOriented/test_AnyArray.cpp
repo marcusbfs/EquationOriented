@@ -8,18 +8,25 @@
 
 int main() {
 
-	std::vector<unsigned int> shape(1);
+	int shape = 5;
 
-	shape[0] = 10;
+	Vector<int> x(shape);
+	{
+	Vector<int> y(shape);
+	y[0] = 1;
+	y[1] = 2;
+	y[2] = 3;
+	y[3] = 4;
+	y[4] = 5;
+	//y[10] = 1;
+	x = y;
+	}
 
-	ArrayAny<int> x(shape);
-
-	for (int i = 0; i < shape[0]; i++)
-		x[i] = i;
 
 	log("Array content")
-	for (int i = 0; i < shape[0]; i++)
+	for (unsigned int i = 0; i < x.size(); i++) {
 		log(x[i]);
+	}
 
 	std::getchar();
 }
