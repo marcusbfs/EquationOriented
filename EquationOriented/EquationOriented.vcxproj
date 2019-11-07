@@ -120,7 +120,6 @@
     <ClInclude Include="ESO.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Array.cpp" />
     <ClCompile Include="EqNode.cpp" />
     <ClCompile Include="test_AnyArray.cpp" />
     <ClCompile Include="test_EqNode.cpp" />

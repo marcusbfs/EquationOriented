@@ -35,9 +35,6 @@
     <ClCompile Include="test_NLAESO.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Array.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="test_AnyArray.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>

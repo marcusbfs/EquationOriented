@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 #pragma region
 // ============= ArrayAny =================
@@ -198,6 +199,7 @@ public:
 	// Constructors and destructors
 	Matrix(const unsigned int nrow, const unsigned int ncol);
 	Matrix(const Matrix<T>& obj);
+	Matrix(const Vector<T>& obj);
 	~Matrix();
 
 	// Functions
@@ -231,6 +233,17 @@ Matrix<T>::Matrix(const Matrix<T>& obj)
 	_nrow = obj.numberOfRows();
 	_ncol = obj.numberOfCols();
 	_size = obj.size();
+	data = new T[_size];
+	for (unsigned int i = 0; i < _size; i++)
+		data[i] = *(obj.getData()+i);
+}
+
+template<class T>
+Matrix<T>::Matrix(const Vector<T>& obj)
+{
+	_nrow = obj.size();
+	_ncol = 1;
+	_size = _nrow;
 	data = new T[_size];
 	for (unsigned int i = 0; i < _size; i++)
 		data[i] = *(obj.getData()+i);
