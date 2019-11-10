@@ -15,6 +15,7 @@ public:
 		Multiply, Divide, Power, Sin, Cos, Exp
 	};
 
+
 public:
 	// Left child of this node
 	std::shared_ptr<EqNode> left = nullptr;

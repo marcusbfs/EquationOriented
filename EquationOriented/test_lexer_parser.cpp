@@ -11,6 +11,7 @@ void test_parser();
 
 int main() {
 
+	//test_lexer();
   test_parser();
 
   std::getchar();
@@ -19,14 +20,14 @@ int main() {
 void test_parser() {
 
 	std::string input = "VARIABLES "
-							"x = 1;"
-							"y = 3;"
+						"x = 1;"
+						"y = 3;"
 						"PARAMETERS "
-							"A = 20;"
-							"B = 14;"
+						"A = 20;"
+						"B = 14;"
 						"EQUATIONS "
-							"x - y + 1 + 1 + 1 + 1 - A;"
-							"x + y + 1*2*3*4- B;";
+						"x - (y - A);"
+						"x + (y - B);";
 
 	Parser par;
 
@@ -50,6 +51,7 @@ void test_lexer() {
 	std::string input = "VARIABLES x = 1.0; y= 2.0; "
 						"PARAMETERS A = 3.14; "
 						"EQUATIONS x - y = A;";
+	input = "sin(x+2^3);";
 
 	lex.tokenize(input);
 

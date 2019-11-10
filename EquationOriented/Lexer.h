@@ -33,14 +33,20 @@ namespace Lexer {
 
 	// Kind is for token type
 	enum Kind : char {
-		end = '0', endofline = ';', plus = '+',
-		newline = '\n',
-		minus = '-', mul = '*', div = '/',
-		equals = '=',
-		p_open = '(', p_close = ')',
-		number = 'n', variable = 'v', parameter = 'p',
-		equation = 'e',
-		keyword = 'k'
+		newline ,
+		end , endofline ,
+		// Basic operators
+		plus, minus , mul, div, power,
+		// functions
+		exp , sin, cos ,
+		equals,
+		// Parenthesis
+		p_open, p_close,
+		// NUmber, variable, parameter
+		number, variable , parameter ,
+		equation ,
+		// Keyword
+		keyword 
 	};
 
 	struct Token {
@@ -49,6 +55,43 @@ namespace Lexer {
 		std::string name;
 		unsigned long pos;
 	};
+
+
+	// Return precedence of operator
+	static int Precedence(Kind op) {
+		switch (op) {
+		case Kind::power:
+			return 4;
+		case Kind::mul:
+		case Kind::div:
+			return 3;
+		case Kind::plus:
+		case Kind::minus:
+			return 2;
+		}
+	}
+
+	// Check if operator is left assiciative
+	static bool isLeftAssociative(Kind op) {
+		switch (op) {
+		case Kind::power:
+			return false;
+		default:
+			return true;
+		}
+	}
+
+	// Check if operator is function
+	static bool isFunction(Kind op) {
+		switch (op) {
+		case Kind::exp:
+		case Kind::cos:
+		case Kind::sin:
+			return true;
+		default:
+			return false;
+		}
+	}
 
 	class Lexer {
 	private:

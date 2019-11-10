@@ -6,6 +6,8 @@
 #include <map>
 #include <iostream>
 #include <cctype>
+#include <stack>
+#include <queue>
 #include <memory>
 #include <vector>
 #include "EqNode.h"
@@ -60,7 +62,8 @@ public:
 	// Handles assignments
 	std::shared_ptr<EqNode> prim();
 
-	// 
+	// Handles the algorihtm
+	std::shared_ptr<EqNode> shunting_yard();
 
 	void match(std::string str) {
 		if (str == m_lexer.getCurrentToken().name)

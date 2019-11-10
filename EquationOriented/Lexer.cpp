@@ -25,11 +25,8 @@ namespace Lexer {
 
 		switch (lac) {
 		case 0: //end of file, stream 
-		{
 			this->m_current_token.kind = Kind::end;
 			return this->m_current_token;
-		}
-
 
 		case '.':
 		case '0': case '1': case '2': case '3': case '4':
@@ -41,13 +38,43 @@ namespace Lexer {
 			return this->m_current_token;
 		}
 
-		case ';': case '+':
-		case '-': case '*': case '=':
-		case '/': case '(': case ')': {
-			this->m_current_token.kind = static_cast<Kind>(lac);
-			this->m_current_token.name = lac;
+		case ';': 
+			this->m_current_token.kind = Kind::endofline;
+			this->m_current_token.name = ";";
 			return this->m_current_token;
-		}
+		case '+':
+			this->m_current_token.kind = Kind::plus;
+			this->m_current_token.name = "+";
+			return this->m_current_token;
+		case '-': 
+			this->m_current_token.kind = Kind::minus;
+			this->m_current_token.name = "-";
+			return this->m_current_token;
+		case '*':
+			this->m_current_token.kind = Kind::mul;
+			this->m_current_token.name = "*";
+			return this->m_current_token;
+		case '=':
+			this->m_current_token.kind = Kind::equals;
+			this->m_current_token.name = "=";
+			return this->m_current_token;
+		case '^':
+			this->m_current_token.kind = Kind::power;
+			this->m_current_token.name =  "^";
+			return this->m_current_token;
+		case '/':
+			this->m_current_token.kind = Kind::div;
+			this->m_current_token.name =  "/";
+			return this->m_current_token;
+		case '(':
+			this->m_current_token.kind = Kind::p_open;
+			this->m_current_token.name =  "(";
+			return this->m_current_token;
+			return this->m_current_token;
+		case ')':
+			this->m_current_token.kind = Kind::p_close;
+			this->m_current_token.name =  ")";
+			return this->m_current_token;
 
 		default: {
 			// If is a alpha char, its a name
@@ -76,6 +103,16 @@ namespace Lexer {
 					is_eq = true;
 					is_var = is_par = false;
 					this->m_current_token.kind = Kind::keyword;
+				}
+				// Check if as function
+				else if (m_current_token.name == "exp") {
+					this->m_current_token.kind = Kind::exp;
+				}
+				else if (m_current_token.name == "cos") {
+					this->m_current_token.kind = Kind::cos;
+				}
+				else if (m_current_token.name == "sin") {
+					this->m_current_token.kind = Kind::sin;
 				}
 				// Else (not a keyword), it's a variable/parameter name
 				else {
