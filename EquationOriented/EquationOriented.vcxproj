@@ -118,11 +118,16 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="EqNode.h" />
     <ClInclude Include="ESO.h" />
+    <ClInclude Include="Lexer.h" />
+    <ClInclude Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EqNode.cpp" />
+    <ClCompile Include="Lexer.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="test_AnyArray.cpp" />
     <ClCompile Include="test_EqNode.cpp" />
+    <ClCompile Include="test_lexer_parser.cpp" />
     <ClCompile Include="test_NLAESO.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

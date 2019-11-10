@@ -1,7 +1,9 @@
-#pragma once
+#ifndef EQNODE_H
+#define EQNODE_H
 
 #include <math.h>
 #include <memory>
+
 
 class EqNode {
 	// Class for a equation node
@@ -12,6 +14,7 @@ public:
 		Add, Subtract,
 		Multiply, Divide, Power, Sin, Cos, Exp
 	};
+
 public:
 	// Left child of this node
 	std::shared_ptr<EqNode> left = nullptr;
@@ -23,6 +26,16 @@ public:
 	OperatorType op = OperatorType::Parameter;
 
 public:
+	// Constructors
+	EqNode(){};
+	~EqNode(){};
+	// Normal operator left OP right
+	EqNode(const std::shared_ptr<EqNode>& l, OperatorType o);
+	// Single operator OP(LEFT)
+	EqNode(const std::shared_ptr<EqNode>& l, const std::shared_ptr<EqNode>& r, OperatorType o);
+	// Double value
+	EqNode(const double& val);
+
 	// Returns true if current node is a leaf node (terminal node)
 	bool isLeaf() const;
 	// Get the current value from node
@@ -34,5 +47,7 @@ public:
 	// Return true if current node depends on var
 	bool depends(const std::shared_ptr<EqNode>& var) const;
 	// Return EqNode which represents the derivative of current EqNode
-	 EqNode derive(const std::shared_ptr<EqNode>& var);
+	 EqNode& derive(const std::shared_ptr<EqNode>& var);
 };
+
+#endif // EQNODE_H

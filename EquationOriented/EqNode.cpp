@@ -36,7 +36,7 @@ double EqNode::getValue() {
 				v = std::cos(left->getValue());
 				break;
 		}
-		return value();
+		return v;
 	}
 }
 
@@ -94,13 +94,32 @@ bool EqNode::depends(const std::shared_ptr<EqNode>& var) const {
 	}
 }
 
+// Single operator OP(LEFT)
+EqNode::EqNode(const std::shared_ptr<EqNode>& l, OperatorType o)
+	: left(l), op(o)
+{
+}
+
+
+// Normal operator left OP right
+EqNode::EqNode(const std::shared_ptr<EqNode>& l, const std::shared_ptr<EqNode>& r, OperatorType o)
+	: left(l), right(r), op(o)
+{
+}
+
+// Double value
+EqNode::EqNode(const double & val)
+	: v(val)
+{
+}
+
 // Returns true if current node is a leaf node (terminal node)
 bool EqNode::isLeaf() const {
 	return left == nullptr && right == nullptr;
 }
 
 // Return EqNode which represents the derivative of current EqNode
- EqNode EqNode::derive(const std::shared_ptr<EqNode>& var) {
+ EqNode& EqNode::derive(const std::shared_ptr<EqNode>& var) {
 
 	 EqNode derivRoot;
 
