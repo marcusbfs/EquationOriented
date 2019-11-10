@@ -7,9 +7,9 @@
 #include <iostream>
 #include <cctype>
 #include <memory>
+#include <vector>
 #include "EqNode.h"
 #include "Lexer.h"
-#include <vector>
 
 /*
 program = "Variables" 

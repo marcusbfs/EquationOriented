@@ -120,6 +120,8 @@
     <ClInclude Include="ESO.h" />
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="Parser.h" />
+    <ClInclude Include="Shunting-yard_Parser.cpp" />
+    <ClInclude Include="Shunting-yard_Parser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EqNode.cpp" />
