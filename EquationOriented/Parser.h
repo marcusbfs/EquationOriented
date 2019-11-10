@@ -65,6 +65,11 @@ public:
 	// Handles the algorihtm
 	std::shared_ptr<EqNode> shunting_yard();
 
+	void _shunting_yard_helper(
+		std::stack<Lexer::Kind>& operator_stack,
+		std::stack<std::shared_ptr<EqNode>>& output_qeue
+	);
+
 	void match(std::string str) {
 		if (str == m_lexer.getCurrentToken().name)
 			m_lexer.fetchNextToken();

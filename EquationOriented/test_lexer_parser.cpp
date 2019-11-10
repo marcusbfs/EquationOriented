@@ -26,8 +26,8 @@ void test_parser() {
 						"A = 20;"
 						"B = 14;"
 						"EQUATIONS "
-						"x - (y - A);"
-						"x + (y - B);";
+						" 3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3;"
+						"exp(3);";
 
 	Parser par;
 
