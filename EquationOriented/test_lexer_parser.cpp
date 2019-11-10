@@ -5,6 +5,7 @@
 #include "EqNode.h"
 #include "Lexer.h"
 #include "Parser.h"
+#include "Array.h"
 
 void test_lexer();
 void test_parser();
@@ -31,15 +32,16 @@ void test_parser() {
 
 	Parser par;
 
-	std::vector<std::shared_ptr<EqNode>> eqns = par.parse(input);
+	par.parse(input);
 
+	Vector<std::shared_ptr<EqNode>> eqns = par.getEquations();
 	int n = eqns.size();
 
 	std::cout << "Number of equations: " << n << "\n";
 
 	for (int i = 0; i < n; i++) {
 		std::cout << "Equation " << i << " val: " <<
-			eqns[i]->getValue() << std::endl;
+			eqns(i)->getValue() << std::endl;
 	}
 
 }

@@ -1,14 +1,14 @@
 #include "Parser.h"
 
-std::vector<std::shared_ptr<EqNode>> Parser::parse(const std::string & str)
+void Parser::parse(const std::string & str)
 {
+	m_equations.clear();
+	m_parameters.clear();
+	m_variables.clear();
+
 	m_lexer.tokenize(str);
 	m_lexer.fetchNextToken();
-	return program();
-}
 
-std::vector<std::shared_ptr<EqNode>> Parser::program()
-{
 	// retriver keywords
 	std::string kw_vars = Lexer::Keywords["var"];
 	std::string kw_pars = Lexer::Keywords["par"];
@@ -41,15 +41,12 @@ std::vector<std::shared_ptr<EqNode>> Parser::program()
 	// EQUATIONS
 	this->match(kw_eqns);
 
-	std::vector<std::shared_ptr<EqNode>> vec;
-
 	while (m_lexer.getCurrentToken().kind != Lexer::Kind::end) {
-		vec.push_back(shunting_yard());
+		this->m_equations.push_back(shunting_yard());
 		this->match(";");
 	}
-
-	return vec;
 }
+
 
 std::shared_ptr<EqNode> Parser::assignment()
 {
@@ -325,4 +322,25 @@ void Parser::_shunting_yard_helper(std::stack<Lexer::Kind>& operator_stack, std:
 		break;
 	}
 	} // end of switch(op)
+}
+
+variables_map Parser::getParameters()
+{
+	return this->m_parameters;
+}
+
+variables_map Parser::getVariables()
+{
+	return this->m_variables;
+}
+
+Vector<std::shared_ptr<EqNode>> Parser::getEquations()
+{
+	Vector<std::shared_ptr<EqNode>> ret(m_equations.size());
+
+	for (size_t i = 0; i < m_equations.size(); i++) {
+		ret(i) = m_equations[i];
+	}
+
+	return ret;
 }

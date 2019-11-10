@@ -12,6 +12,7 @@
 #include <vector>
 #include "EqNode.h"
 #include "Lexer.h"
+#include "Array.h"
 
 /*
 program = "Variables" 
@@ -32,20 +33,20 @@ term = prim | term '*' prim | term '/' prim
 prim = number | variable | parameter | '-' prime | '(' epxr ')'
 */
 
+typedef std::map<std::string, std::shared_ptr<EqNode>> variables_map;
+
 class Parser {
 
 private:
 	Lexer::Lexer m_lexer;
 	std::map<std::string, std::shared_ptr<EqNode>> m_parameters;
 	std::map<std::string, std::shared_ptr<EqNode>> m_variables;
+	std::vector<std::shared_ptr<EqNode>> m_equations;
 
 public:
 
 	// Handles the parsing
-	std::vector<std::shared_ptr<EqNode>> parse(const std::string& str);
-
-	// Handles the entire program
-	std::vector<std::shared_ptr<EqNode>> program();
+	void parse(const std::string& str);
 
 	// Handles assignments
 	std::shared_ptr<EqNode> assignment();
@@ -69,6 +70,15 @@ public:
 		std::stack<Lexer::Kind>& operator_stack,
 		std::stack<std::shared_ptr<EqNode>>& output_qeue
 	);
+
+	// Return variables of equations
+	variables_map getVariables();
+
+	// Return parameters of equations
+	variables_map getParameters();
+
+	// Return equations
+	Vector<std::shared_ptr<EqNode>> getEquations();
 
 	void match(std::string str) {
 		if (str == m_lexer.getCurrentToken().name)
