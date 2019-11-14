@@ -19,9 +19,10 @@ class INumericESO {
 };
 
 
-class INumericNLAESO : INumericESO {
+class INumericNLAESO : public INumericESO {
 
 	// Gets the value of all the residuals
 	virtual void GetAllResiduals(Vector<double>& AllResiduals) = 0;
+	// Gets the value of all Jacobian Values
 	virtual void GetAllJacobianValues(Matrix<double>& AllJacobianValues) = 0;
 };
