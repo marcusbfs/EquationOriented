@@ -7,36 +7,36 @@ double EqNode::value() const {
 // Update current value from node and returns it
 double EqNode::getValue() {
 	if (isLeaf())
-		return value();
+		return this->v;
 	else {
-		// Updates current v val
+		// Updates current this->v val
 		switch (op) {
 			case OperatorType::Add:
-				v = left->getValue() + right->getValue();
+				this->v = left->getValue() + right->getValue();
 				break;
 			case OperatorType::Subtract:
-				v = left->getValue() - right->getValue();
+				this->v = left->getValue() - right->getValue();
 				break;
 			case OperatorType::Multiply:
-				v = left->getValue() * right->getValue();
+				this->v = left->getValue() * right->getValue();
 				break;
 			case OperatorType::Divide:
-				v = left->getValue() / right->getValue();
+				this->v = left->getValue() / right->getValue();
 				break;
 			case OperatorType::Power:
-				v = std::pow(left->getValue(), right->getValue());
+				this->v = std::pow(left->getValue(), right->getValue());
 				break;
 			case OperatorType::Exp:
-				v = std::exp(left->getValue());
+				this->v = std::exp(left->getValue());
 				break;
 			case OperatorType::Sin:
-				v = std::sin(left->getValue());
+				this->v = std::sin(left->getValue());
 				break;
 			case OperatorType::Cos:
-				v = std::cos(left->getValue());
+				this->v = std::cos(left->getValue());
 				break;
 		}
-		return v;
+		return this->v;
 	}
 }
 
@@ -49,35 +49,33 @@ double EqNode::getDerValue(const std::shared_ptr<EqNode>& var) const {
 			return 0.0;
 	}
 	else {
-		double derVal;
 		switch (op) {
 			case OperatorType::Add:
-				derVal = left->getDerValue(var) + right->getDerValue(var);
+				return left->getDerValue(var) + right->getDerValue(var);
 				break;
 			case OperatorType::Subtract:
-				derVal = left->getDerValue(var) - right->getDerValue(var);
+				return left->getDerValue(var) - right->getDerValue(var);
 				break;
 			case OperatorType::Multiply:
-				derVal = right->value()*left->getDerValue(var) + left->value()*right->getDerValue(var);
+				return right->value()*left->getDerValue(var) + left->value()*right->getDerValue(var);
 				break;
 			case OperatorType::Divide:
-				derVal = (right->value()*left->getDerValue(var) - left->value()*right->getDerValue(var))/(right->value()*right->value());
+				return (right->value()*left->getDerValue(var) - left->value()*right->getDerValue(var))/(right->value()*right->value());
 				break;
 			case OperatorType::Power:
-				derVal = right->value() * std::pow(left->value(), right->value() - 1.0) *left->getDerValue(var);
+				return right->value() * std::pow(left->value(), right->value() - 1.0) *left->getDerValue(var);
 				break;
 			case OperatorType::Exp:
-				derVal = std::exp(left->value())*left->getDerValue(var);
+				return std::exp(left->value())*left->getDerValue(var);
 				break;
 			case OperatorType::Sin:
-				derVal = std::cos(left->value())*left->getDerValue(var);
+				return std::cos(left->value())*left->getDerValue(var);
 				break;
 			case OperatorType::Cos:
-				derVal = -std::sin(left->value())*left->getDerValue(var);
+				return -std::sin(left->value())*left->getDerValue(var);
 				break;
-		}
-		return derVal;
-	}
+		} // end of switch
+	} // end of else
 }
 // Return true if current node depends on var
 bool EqNode::depends(const std::shared_ptr<EqNode>& var) const {

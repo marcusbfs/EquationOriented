@@ -1,7 +1,7 @@
 #ifndef EQNODE_H
 #define EQNODE_H
 
-#include <math.h>
+#include <cmath>
 #include <memory>
 
 
