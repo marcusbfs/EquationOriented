@@ -1,6 +1,8 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+//#include <algorithm>
+
 #pragma region
 // ============= Vector =================
 // Class to represent a vector
@@ -71,10 +73,8 @@ inline void Vector<T>::copy(const Vector<T>& obj)
 	this->_size = obj.size();
 	delete[] data;
 	data = new T[this->_size];
-	//for (unsigned int i = 0; i < this->_size; i++) {
-	//	data[i] = *(obj.getData() + i);
-	//}
-	memcpy(data, &obj, sizeof(obj.data));
+	for (unsigned int i = 0; i < this->_size; i++)
+		data[i] = *(obj.getData()+i);
 }
 
 template<class T>
@@ -164,8 +164,9 @@ void Matrix<T>::copy(const Vector<T>& obj)
 	_nrow = obj.size();
 	_ncol = 1;
 	_size = _nrow;
+	delete[] data;
 	data = new T[_size];
-	for (unsigned int i = 0; i < _size; i++)
+	for (unsigned int i = 0; i < this->_size; i++)
 		data[i] = *(obj.getData()+i);
 }
 
@@ -199,7 +200,7 @@ inline void Matrix<T>::copy(const Matrix<T>& obj)
 	_size = obj.size();
 	delete[] data;
 	data = new T[_size];
-	for (unsigned int i = 0; i < _size; i++)
+	for (unsigned int i = 0; i < this->_size; i++)
 		data[i] = *(obj.getData()+i);
 }
 

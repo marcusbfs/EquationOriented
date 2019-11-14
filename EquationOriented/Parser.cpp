@@ -1,6 +1,6 @@
 #include "Parser.h"
 
-void Parser::parse(const std::string & str)
+void Parser::parse(const std::string& str)
 {
 	m_equations.clear();
 	m_parameters.clear();
@@ -72,6 +72,8 @@ std::shared_ptr<EqNode> Parser::assignment()
 		m_lexer.fetchNextToken();
 		return left;
 	}
+	default:
+		return nullptr;
 	}
 }
 
@@ -338,9 +340,8 @@ Vector<std::shared_ptr<EqNode>> Parser::getEquations()
 {
 	Vector<std::shared_ptr<EqNode>> ret(m_equations.size());
 
-	for (size_t i = 0; i < m_equations.size(); i++) {
+	for (size_t i = 0; i < m_equations.size(); i++)
 		ret(i) = m_equations[i];
-	}
 
 	return ret;
 }
